@@ -44,8 +44,23 @@ console.log(sumNumbers(numbers))
 
 
 // Iteration #3.1 Bonus:
-function sum() {
+function sum(array) {
+  let sum = 0;
 
+  for (let i = 0; i < array.length; i++) {
+    if (typeof array[i] === "number") {
+      sum = sum + array[i];
+    } else if (typeof array[i] === "string") {
+      sum = sum + array[i].length;
+    } else if (typeof array[i] === "boolean") {
+      if (array[i]) {
+        sum = sum + 1;
+      }
+    } else {
+      throw new Error("Unsupported data type sir or ma'am"); //dont know how to throw error
+    }
+  }
+  return sum;
 }
 
 
@@ -80,8 +95,11 @@ function averageWordLength(wordsArr) {
 
 
 // Bonus - Iteration #4.1
-function avg() {
-
+function avg(array) {
+  if (array[0] === undefined) {
+    return null;
+  }
+  return sum(array) / array.length;
 }
 
 // Iteration #5: Unique arrays
@@ -182,9 +200,110 @@ const matrix = [
   [1, 70, 54, 71, 83, 51, 54, 69, 16, 92, 33, 48, 61, 43, 52, 1, 89, 19, 67, 48]
 ];
 
-function greatestProduct() {
+let matrix2 = [
+  //greatest diagonal product is 10000
+  [1, 1, 1, 10, 5],
+  [10, 7, 1, 10, 1],
+  [2, 1, 10, 10, 6],
+  [10, 10, 10, 1, 10],
+  [10, 6, 4, 10, 3],
+];
 
+function greatestProduct(matrix) {
+  let greatestProduct = 0;
+  for (let i = 0; i < matrix.length; i++) {
+    for (let j = 0; j < matrix.length; j++) {
+      let product =
+        matrix[i][j] * matrix[i][j + 1] * matrix[i][j + 2] * matrix[i][j + 3];
+      if (product === NaN || product === undefined) {
+        continue;
+      } else {
+        if (product > greatestProduct) {
+          greatestProduct = product;
+        }
+      }
+    }
+  }
+  for (let j = 0; j < matrix.length; j++) {
+    for (let i = 0; i < matrix.length; i++) {
+      if (
+        matrix[i] === undefined ||
+        matrix[i + 1] === undefined ||
+        matrix[i + 2] === undefined ||
+        matrix[i + 3] === undefined
+      ) {
+        continue;
+      }
+      let product =
+        matrix[i][j] * matrix[i + 1][j] * matrix[i + 2][j] * matrix[i + 3][j];
+      if (product === NaN || product === undefined) {
+        continue;
+      } else {
+        if (product > greatestProduct) {
+          greatestProduct = product;
+        }
+      }
+    }
+  }
+  console.log(greatestProduct);
+  return greatestProduct;
 }
+greatestProduct(matrix);
+
+function greatestProductOfDiagonals(matrix) {
+  let greatestProduct = 0;
+  for (let i = 0; i < matrix.length; i++) {
+    for (let j = 0; j < matrix.length; j++) {
+      if (
+        matrix[i] === undefined ||
+        matrix[i + 1] === undefined ||
+        matrix[i + 2] === undefined ||
+        matrix[i + 3] === undefined
+      ) {
+        continue;
+      }
+      let product =
+        matrix[i][j] *
+        matrix[i + 1][j + 1] *
+        matrix[i + 2][j + 2] *
+        matrix[i + 3][j + 3];
+      if (product === NaN || product === undefined) {
+        continue;
+      } else {
+        if (product > greatestProduct) {
+          greatestProduct = product;
+        }
+      }
+    }
+  }
+  for (let j = 0; j < matrix.length; j++) {
+    for (let i = 0; i < matrix.length; i++) {
+      if (
+        matrix[i] === undefined ||
+        matrix[i + 1] === undefined ||
+        matrix[i + 2] === undefined ||
+        matrix[i + 3] === undefined
+      ) {
+        continue;
+      }
+      let product =
+        matrix[i][j] *
+        matrix[i + 1][j - 1] *
+        matrix[i + 2][j - 2] *
+        matrix[i + 3][j - 3];
+      if (product === NaN || product === undefined) {
+        continue;
+      } else {
+        if (product > greatestProduct) {
+          greatestProduct = product;
+        }
+      }
+    }
+  }
+  console.log(greatestProduct);
+  return greatestProduct;
+}
+greatestProductOfDiagonals(matrix2);
 
 
 
